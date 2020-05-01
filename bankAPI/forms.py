@@ -26,14 +26,20 @@ class ApprovalForm(forms.Form):
         ('Semiurban', 'Semiurban'),
         ('Urban', 'Urban')
     ]
-    firstname = forms.CharField(max_length=50)
-    lastname = forms.CharField(max_length=50)
-    Dependents = forms.IntegerField()
-    ApplicantIncome = forms.IntegerField()
-    CoapplicantIncome = forms.IntegerField()
-    LoanAmount = forms.IntegerField()
-    Loan_Amount_Term = forms.IntegerField()
-    Credit_History = forms.IntegerField()
+    CREDIT_HISTORY_CHOICES = [
+        ('0', 0),
+        ('1', 1),
+        ('2', 2),
+        ('3', 3)
+    ]
+    firstname = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Enter First Name'}))
+    lastname = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Enter last Name'}))
+    Dependents = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Enter No. of dependants'}))
+    ApplicantIncome = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Enter applicants income'}))
+    CoapplicantIncome = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Enter coapplicants income'}))
+    LoanAmount = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Enter loan amount'}))
+    Loan_Amount_Term = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Enter loan amount term'}))
+    Credit_History = forms.ChoiceField(choices=CREDIT_HISTORY_CHOICES)
     Gender = forms.ChoiceField(choices=GENDER_CHOICES)
     Married = forms.ChoiceField(choices=MARRIED_CHOICES)
     Education = forms.ChoiceField( choices=GRADUATED_CHOICES)

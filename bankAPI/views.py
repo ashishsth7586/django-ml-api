@@ -80,10 +80,15 @@ def cxcontact(request):
             Self_Employed = form.cleaned_data['Self_Employed']
             Property_Area = form.cleaned_data['Property_Area']
 
-            myDict = (request.POST).dict()
+            myDict = (request.POST).dict() 
             df = pd.DataFrame(myDict, index=[0])
             answer = approveReject(ohevalue(df))
-            messages.success(request, 'Application Status: {}'.format(answer))
+            # Xscalers = approveReject(ohevalue(df))[1]
+            loan_threshold = 25000
+            if int(df['LoanAmount']) <= loan_threshold:
+                messages.success(request, 'Application Status: {}'.format(answer))
+            else:
+                messages.success(request, 'Invalid: Your Loan Request Exceeds {} limit'.format(loan_threshold))
     form = ApprovalForm()
 
     return render(request, 'csform.html', {'form': form})

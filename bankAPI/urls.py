@@ -7,8 +7,8 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('alldata', ApprovalView)
 urlpatterns = [
-    path('', include(router.urls)),
-    path('predict/', approveReject),
-    path('form/', cxcontact, name="cxform"),
+    path('api/', include(router.urls)),
+    path('api/predict/', approveReject),
+    path('', cxcontact, name="cxform"),
 
 ]
